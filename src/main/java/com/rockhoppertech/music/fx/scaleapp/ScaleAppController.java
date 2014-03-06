@@ -35,6 +35,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
@@ -72,6 +73,12 @@ public class ScaleAppController {
 
     @FXML
     private URL location;
+
+    @FXML
+    private Label durationLabel;
+
+    @FXML
+    private Label nOctLabel;
 
     @FXML
     private CheckBox mirrorCB;
@@ -182,7 +189,7 @@ public class ScaleAppController {
                     return;
                 }
                 sliderText.setText(PitchFormat.getInstance().format(
-                        newValue.intValue()));
+                        newValue.intValue() ));
             }
         });
 
@@ -192,7 +199,23 @@ public class ScaleAppController {
 
         // model.durationProperty().bind(this.durationSlider.valueProperty());
         model.durationProperty().bind(
-                Bindings.divide(this.durationSlider.valueProperty(), 10d));
+                Bindings.divide(this.durationSlider.valueProperty(), 16d));
+
+        // durationLabel.textProperty().bind(this.durationSlider.valueProperty());
+        durationSlider.valueProperty().addListener(
+                new ChangeListener<Number>() {
+                    @Override
+                    public void changed(
+                            ObservableValue<? extends Number> observableValue,
+                            Number oldValue, Number newValue) {
+                        if (newValue == null) {
+                            durationLabel.setText("");
+                            return;
+                        }
+                        durationLabel.setText("" +
+                                newValue.intValue() / 16d);
+                    }
+                });
 
         this.scaleListView.setItems(model.getScaleListData());
 
