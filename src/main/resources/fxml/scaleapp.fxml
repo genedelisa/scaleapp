@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.rockhoppertech.music.fx.cmn.*?>
+<?import com.rockhoppertech.music.fx.cmn.GrandStaff?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?scenebuilder-classpath-element ../../../../../rockymusic/rockymusic-fx/target/classes?>
+<?scenebuilder-classpath-element ../../../../../../../../.m2/repository/org/slf4j/slf4j-api/1.7.6/slf4j-api-1.7.6.jar?>
+<?scenebuilder-classpath-element ../../../../../rockymusic/rockymusic-core/target/classes?>
+<?scenebuilder-classpath-element ../../../../../../../../.m2/repository/org/glassfish/javax.json/1.0.4/javax.json-1.0.4.jar?>
+
+<AnchorPane id="AnchorPane" fx:id="root" prefHeight="1000.0" prefWidth="1000.0" xmlns:fx="http://javafx.com/fxml" fx:controller="com.rockhoppertech.music.fx.scaleapp.ScaleAppController">
+  <children>
+    <BorderPane prefHeight="327.0" prefWidth="446.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <bottom>
+        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+          <children>
+            <Button mnemonicParsing="false" onAction="#playAction" text="Play" />
+            <Button mnemonicParsing="false" onAction="#chooseInstrumentAction" text="Choose Instrument" />
+            <CheckBox fx:id="scaleUpAndDownCB" mnemonicParsing="false" text="Up and Down" />
+          </children>
+        </HBox>
+      </bottom>
+      <center>
+        <VBox prefHeight="200.0" prefWidth="100.0">
+          <children>
+            <ScrollPane fitToHeight="true" fitToWidth="false" minHeight="240.0" prefHeight="240.0" prefViewportHeight="240.0" prefViewportWidth="1000.0" prefWidth="-1.0">
+              <content>
+                <!----> 
+                 <GrandStaff fx:id="grandStaff" prefHeight="-1.0"
+									prefWidth="-1.0"
+									style="-fx-background-color: antiquewhite; -fx-border-color: black; -fx-border-width: 1px;" />
+ 
+              </content>
+            </ScrollPane>
+            <SplitPane dividerPositions="0.3276553106212425" focusTraversable="true" prefHeight="646.0" prefWidth="1000.0">
+              <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                  <children>
+                    <ListView fx:id="trackList" layoutX="14.0" layoutY="14.0" prefHeight="364.0" prefWidth="271.0" />
+                  </children>
+                </AnchorPane>
+                <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+                  <tabs>
+                    <Tab text="Scale">
+                      <content>
+                        <GridPane alignment="CENTER" hgap="5.0" prefHeight="200.0" prefWidth="320.0" vgap="5.0">
+                          <children>
+                            <ListView fx:id="scaleListView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" />
+                            <Slider fx:id="pitchSlider" blockIncrement="12.0" majorTickUnit="12.0" max="127.0" showTickLabels="true" showTickMarks="true" value="60.0" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                            <TextField fx:id="sliderText" onAction="#pitchTextAction" prefWidth="130.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                            <Slider fx:id="nOctavesSlider" blockIncrement="2.0" majorTickUnit="2.0" max="10.0" min="1.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" snapToTicks="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                            <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" labelFor="$nOctavesSlider" text="Number of Octaves" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+                            <Label text="Duration" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+                            <Label text="Start Beat" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
+                            <TextField fx:id="startBeatText" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                            <Slider fx:id="durationSlider" min="1.0" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                          </children>
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="222.0" minWidth="10.0" prefWidth="149.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="297.0" minWidth="10.0" prefWidth="297.0" />
+                          </columnConstraints>
+                          <padding>
+                            <Insets top="10.0" />
+                          </padding>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                        </GridPane>
+                      </content>
+                    </Tab>
+                    <Tab text="Patterns">
+                      <content>
+                        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                          <children>
+                            <ListView fx:id="patternListView" prefHeight="104.0" prefWidth="463.0" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="124.5" AnchorPane.rightAnchor="129.5" AnchorPane.topAnchor="254.0" />
+                            <ScrollPane layoutX="15.0" layoutY="14.0" prefHeight="240.0" prefViewportHeight="240.0" prefWidth="688.0">
+                              <content>
+                                <!-- <GrandStaff fx:id="patternStaff"
+																	style="-fx-background-color: antiquewhite; -fx-border-color: black; -fx-border-width: 1px;" />
+ -->
+                              </content>
+                            </ScrollPane>
+                            <HBox alignment="CENTER" layoutX="125.0" prefHeight="22.0" prefWidth="439.0" AnchorPane.bottomAnchor="13.0">
+                              <children>
+                                <CheckBox fx:id="patternReverseCB" mnemonicParsing="false" onAction="#patternCBAction" text="Reverse" />
+                                <CheckBox fx:id="patternUpAndDownCB" mnemonicParsing="false" onAction="#patternCBAction" text="Up and Down" />
+                                <CheckBox fx:id="patternUsePCCB" mnemonicParsing="false" onAction="#patternCBAction" text="Use PC" />
+                                <CheckBox fx:id="patternSpreadCB" mnemonicParsing="false" onAction="#patternCBAction" text="Spread" />
+                              </children>
+                            </HBox>
+                          </children>
+                        </AnchorPane>
+                      </content>
+                    </Tab>
+                  </tabs>
+                </TabPane>
+              </items>
+            </SplitPane>
+          </children>
+        </VBox>
+      </center>
+      <top>
+        <MenuBar useSystemMenuBar="true">
+          <menus>
+            <Menu mnemonicParsing="true" text="_File">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#exitAction" text="Close" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Edit">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Delete" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Help">
+              <items>
+                <MenuItem mnemonicParsing="false" text="About" />
+              </items>
+            </Menu>
+          </menus>
+        </MenuBar>
+      </top>
+    </BorderPane>
+  </children>
+</AnchorPane>
