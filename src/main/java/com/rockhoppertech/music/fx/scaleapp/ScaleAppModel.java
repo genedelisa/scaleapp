@@ -150,6 +150,31 @@ public final class ScaleAppModel {
                 getDuration(),
                 isUpAndDown(),
                 getNOctaves());
+        track.setName("Scale from scaleapp-fx");
+        track.setDescription(String.format(
+                "From scale %s, pitch %s, start beat %f, duration %f",
+                newScale,
+                getPitch(),
+                getStartBeat(),
+                getDuration()));
+        this.setMIDITrack(track);
+    }
+
+    public void refresh() {
+        MIDITrack track = ScaleFactory.createMIDITrack(
+                this.selectedScale,
+                getPitch(),
+                getStartBeat(),
+                getDuration(),
+                isUpAndDown(),
+                getNOctaves());
+        track.setName("Scale from scaleapp-fx");
+        track.setDescription(String.format(
+                "From scale %s, pitch %s, start beat %f, duration %f",
+                selectedScale,
+                getPitch(),
+                getStartBeat(),
+                getDuration()));
         this.setMIDITrack(track);
     }
 
