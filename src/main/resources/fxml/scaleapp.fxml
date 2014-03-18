@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.rockhoppertech.music.fx.*?>
 <?import com.rockhoppertech.music.fx.cmn.*?>
 <?import com.rockhoppertech.music.fx.cmn.GrandStaff?>
+<?import com.rockhoppertech.music.fx.cmn.InputStaff?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.collections.*?>
@@ -9,10 +11,11 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?scenebuilder-classpath-element ../../../../../rockymusic/rockymusic-fx/target/classes?>
+<?scenebuilder-classpath-element ../../../../target/classes?>
 <?scenebuilder-classpath-element ../../../../../../../../.m2/repository/org/slf4j/slf4j-api/1.7.6/slf4j-api-1.7.6.jar?>
-<?scenebuilder-classpath-element ../../../../../rockymusic/rockymusic-core/target/classes?>
 <?scenebuilder-classpath-element ../../../../../../../../.m2/repository/org/glassfish/javax.json/1.0.4/javax.json-1.0.4.jar?>
+<?scenebuilder-classpath-element ../../../../../../../../.m2/repository/com/rockhoppertech/rockymusic-fx/0.0.1-SNAPSHOT/rockymusic-fx-0.0.1-SNAPSHOT.jar?>
+<?scenebuilder-classpath-element ../../../../../../../../.m2/repository/com/rockhoppertech/rockymusic-core/0.0.1-SNAPSHOT/rockymusic-core-0.0.1-SNAPSHOT.jar?>
 
 <AnchorPane id="AnchorPane" fx:id="root" prefHeight="1000.0" prefWidth="1000.0" xmlns:fx="http://javafx.com/fxml" fx:controller="com.rockhoppertech.music.fx.scaleapp.ScaleAppController">
   <children>
@@ -32,11 +35,11 @@
             <ScrollPane fitToHeight="true" fitToWidth="false" minHeight="240.0" prefHeight="240.0" prefViewportHeight="240.0" prefViewportWidth="1000.0" prefWidth="-1.0">
               <content>
                 <!--
-                -->
+               -->
                  <GrandStaff fx:id="grandStaff" prefHeight="-1.0"
 									prefWidth="-1.0"
 									style="-fx-background-color: antiquewhite; -fx-border-color: black; -fx-border-width: 1px;" />
- 
+  
               </content>
             </ScrollPane>
             <SplitPane dividerPositions="0.3276553106212425" focusTraversable="true" prefHeight="646.0" prefWidth="1000.0">
@@ -55,10 +58,11 @@
                             <ListView fx:id="scaleListView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" />
                             <Slider fx:id="pitchSlider" blockIncrement="12.0" majorTickUnit="12.0" max="127.0" showTickLabels="true" showTickMarks="true" value="60.0" GridPane.columnIndex="0" GridPane.rowIndex="1" />
                             <TextField fx:id="sliderText" onAction="#pitchTextAction" prefWidth="130.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                            <Button fx:id="inputButton" text="Pop up" onAction="#popupAction" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                             <HBox id="HBox" alignment="CENTER" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                               <children>
-                                <Slider fx:id="nOctavesSlider" blockIncrement="2.0" majorTickUnit="2.0" max="10.0" min="1.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
-                                <Label fx:id="nOctLabel" text="" />
+                                <Slider fx:id="nOctavesSlider" blockIncrement="2.0" majorTickUnit="2.0" max="10.0" min="1.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" snapToTicks="true" HBox.hgrow="ALWAYS" />
+                                <Label fx:id="nOctLabel" text="" HBox.hgrow="ALWAYS" />
                               </children>
                             </HBox>
                             <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" labelFor="$nOctavesSlider" text="Number of Octaves" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
@@ -67,8 +71,8 @@
                             <TextField fx:id="startBeatText" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                             <HBox id="HBox" alignment="CENTER" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                               <children>
-                                <Slider fx:id="durationSlider" majorTickUnit="4.0" max="64.0" min="1.0" minorTickCount="2" showTickLabels="false" showTickMarks="true" snapToTicks="false" />
-                                <Label fx:id="durationLabel" text="" />
+                                <Slider fx:id="durationSlider" majorTickUnit="4.0" max="64.0" min="1.0" minorTickCount="2" showTickLabels="false" showTickMarks="true" snapToTicks="false" HBox.hgrow="ALWAYS" />
+                                <Label fx:id="durationLabel" text="" HBox.hgrow="ALWAYS" />
                               </children>
                             </HBox>
                           </children>
