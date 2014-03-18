@@ -25,8 +25,10 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.beans.binding.Bindings;
+import javafx.beans.binding.StringExpression;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -34,6 +36,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -57,6 +60,8 @@ import org.slf4j.LoggerFactory;
 import com.rockhoppertech.music.PatternFactory;
 import com.rockhoppertech.music.PitchFormat;
 import com.rockhoppertech.music.fx.cmn.GrandStaff;
+import com.rockhoppertech.music.fx.cmn.InputStaff;
+import com.rockhoppertech.music.fx.cmn.InputStaffDialog;
 import com.rockhoppertech.music.midi.js.MIDITrack;
 import com.rockhoppertech.music.scale.Scale;
 
@@ -90,7 +95,20 @@ public class ScaleAppController {
     private GrandStaff patternStaff;
 
     @FXML
+    private InputStaff inputStaff;
+
+    @FXML
     private ListView<int[]> patternListView;
+
+    @FXML
+    private Button inputButton;
+
+    private InputStaffDialog dialog = new InputStaffDialog();
+
+    @FXML
+    void popupAction(ActionEvent event) {
+        dialog.show();
+    }
 
     @FXML
     private CheckBox patternReverseCB;
@@ -189,7 +207,18 @@ public class ScaleAppController {
                     return;
                 }
                 sliderText.setText(PitchFormat.getInstance().format(
-                        newValue.intValue() ));
+                        newValue.intValue()));
+                dialog.setPitch(newValue.intValue());
+            }
+        });
+
+        dialog.pitchProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> arg0,
+                    Number arg1, Number newPitch) {
+                pitchSlider.setValue(newPitch.intValue());
+                // sliderText.setText(PitchFormat
+                // .midiNumberToString(newPitch.intValue()));
             }
         });
 
@@ -201,7 +230,10 @@ public class ScaleAppController {
         model.durationProperty().bind(
                 Bindings.divide(this.durationSlider.valueProperty(), 16d));
 
-        // durationLabel.textProperty().bind(this.durationSlider.valueProperty());
+        StringExpression durfmt = Bindings.format("%3.3f",
+                Bindings.divide(this.durationSlider.valueProperty(), 16d));
+        durationLabel.textProperty().bind(durfmt);
+
         durationSlider.valueProperty().addListener(
                 new ChangeListener<Number>() {
                     @Override
@@ -212,8 +244,10 @@ public class ScaleAppController {
                             durationLabel.setText("");
                             return;
                         }
-                        durationLabel.setText("" +
-                                newValue.intValue() / 16d);
+
+                        if (!durationSlider.isValueChanging()) {
+                            model.refresh();
+                        }
                     }
                 });
 
